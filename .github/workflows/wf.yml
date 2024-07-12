@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: upload-histogram
-          path: ${{ github.workspace }}/ntrains2_tlen80_ntracks20_ttlr0.2_cmult4.png
+          path: ${{ github.workspace }}/ntrains3_tlen80_ntracks24_ttlr0.1_cmult3.png

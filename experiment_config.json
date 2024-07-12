@@ -1,9 +1,9 @@
 {
-    "ntrains":2,
+    "ntrains":3,
     "tlen":80,
-    "ntracks":20,
-    "ttlr":0.2,
-    "cmult":4,
-    "goal1":2,
-    "goal2":4
+    "ntracks":24,
+    "ttlr":0.1,
+    "cmult":3,
+    "goal1":3,
+    "goal2":1
 }
