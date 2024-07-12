@@ -1,7 +1,7 @@
-import sys
-if 'tusp-pddl-generator/src' not in sys.path:
-    sys.path.append('tusp-pddl-generator/src')
 import os
+import sys
+if os.path.abspath('tusp-pddl-generator/src') not in sys.path:
+    sys.path.append(os.path.abspath('tusp-pddl-generator/src'))
 import json
 import time
 import subprocess
