@@ -1,0 +1,6 @@
+[submodule "tusp-pddl-generator"]
+	path = tusp-pddl-generator
+	url = https://github.com/LonyuNaz/tusp-pddl-generator.git
+[submodule "ENHSP-Public"]
+	path = ENHSP-Public
+	url = https://gitlab.com/enricos83/ENHSP-Public.git
