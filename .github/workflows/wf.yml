@@ -1,5 +1,5 @@
-name: py
-
+name: exp_normal
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
