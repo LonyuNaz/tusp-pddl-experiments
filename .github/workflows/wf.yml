@@ -17,3 +17,8 @@ jobs:
       - name: execute py script # run file
         run: |
           python exp_normal.py
+      - name: Upload histogram
+        uses: actions/upload-artifact@v4
+        with:
+          name: upload-histogram
+          path: ${{ github.workspace }}/ntrains2_tlen80_ntracks20_ttlr0.2_cmult4.png
