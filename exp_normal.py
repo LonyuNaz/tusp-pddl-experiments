@@ -70,7 +70,7 @@ if __name__ == '__main__':
     os.chdir("ENHSP-Public")
     subprocess.call("./compile")
     os.chdir("..")
-    N_EXPERIMENTS = 10
+    N_EXPERIMENTS = 1000
     runtimes = []
     error_counter = 0
     for _ in tqdm(range(N_EXPERIMENTS)):
