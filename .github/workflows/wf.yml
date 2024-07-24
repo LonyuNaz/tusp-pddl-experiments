@@ -22,7 +22,7 @@ jobs:
       - name: execute py script # run file
         run: |
           python exp_lmg.py
-      - name: Upload histogram
+      - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: upload-results
