@@ -21,7 +21,6 @@
     (parkable ?train - train)
     (servicable ?train - train)
     (is_parking ?train - train)
-    (has_parked ?train - train)
     (was_serviced ?train - train)
     (is_direction_Aside ?train - train)
 
@@ -29,7 +28,6 @@
     (train_at ?train - train ?track - track)
     (block ?track - track)
     (block_mutex_holder ?track - track ?train - train)
-    (is_entry ?track - track)
 
     ; track connections
     (tracks_linked ?trackLeft - track ?trackRight - track)
@@ -76,24 +74,23 @@
 ; )
 
 
-(:action service_train
-    :parameters (
-        ?train - train
-    )
-    :precondition (and 
-        (is_active ?train)
-        (servicable ?train)
-        (not (is_parking ?train))
-        (not (was_serviced ?train))
-    )
-    :effect (and 
-        (increase (total-cost) 1)
-        (was_serviced ?train)
-        (forall (?tr - track) 
-            (when (block_mutex_holder ?tr ?train) (not (block ?tr)))
-        )
-    )
-)
+; (:action service_train
+;     :parameters (
+;         ?train - train
+;     )
+;     :precondition (and 
+;         (is_active ?train)
+;         (servicable ?train)
+;         (not (is_parking ?train))
+;     )
+;     :effect (and 
+;         (increase (total-cost) 1)
+;         (was_serviced ?train)
+;         (forall (?tr - track) 
+;             (when (block_mutex_holder ?tr ?train) (not (block ?tr)))
+;         )
+;     )
+; )
 
 (:action start_parking
     :parameters (
@@ -102,8 +99,6 @@
     :precondition (and 
         (is_active ?train)
         (parkable ?train)
-        (not (is_parking ?train))
-        (not (has_parked ?train))
     )
     :effect (and 
         (decrease (total-cost) 10)
@@ -114,19 +109,19 @@
     )
 )
 
-(:action stop_parking
-    :parameters (
-        ?train - train
-    )
-    :precondition (and 
-        (is_parking ?train)
-    )
-    :effect (and 
-        (increase (total-cost) 100)
-        (not (is_parking ?train))
-        (has_parked ?train)
-    )
-)
+; (:action stop_parking
+;     :parameters (
+;         ?train - train
+;     )
+;     :precondition (and 
+;         (is_parking ?train)
+;     )
+;     :effect (and 
+;         (increase (total-cost) 100)
+;         (not (is_parking ?train))
+;         (has_parked ?train)
+;     )
+; )
 
 (:action move_Aside
     :parameters (
@@ -140,7 +135,6 @@
         (train_at ?train ?trackFrom)
 
         (not (block ?trackTo))
-        (not (block ?trackFrom))
 
         (tracks_linked ?trackFrom ?trackTo)
 
@@ -173,11 +167,11 @@
         (decrease (num_trains_on_track ?trackFrom) 1)
         (increase (num_trains_on_track ?trackTo) 1)
 
-        (block ?trackFrom)
-        (block_mutex_holder ?trackFrom ?train)
+        (block ?trackTo)
+        (block_mutex_holder ?trackTo ?train)
 
         (not (servicable ?train))
-        (when (service_allowed ?trackTo) (servicable ?train))
+        (when (service_allowed ?trackTo) (was_serviced ?train))
 
         (not (parkable ?train))
         (when (not (parking_disallowed ?trackTo)) (parkable ?train))
@@ -195,17 +189,14 @@
 ;         (is_active ?train)
 ;         (not (is_parking ?train))
 ;         (train_at ?train ?trackFrom)
+;             )
+;         )
+;         (increase (track_length ?trackFrom) (train_length ?train))
+;         (decrease (track_length ?trackTo) (train_length ?train))
+        
+;         (assign (train_order_on_track ?train) (+ (num_trains_on_track ?trackTo) 1))
 
-;         (not (block ?trackTo))
-;         (not (block ?trackMiddle))
-;         (not (block ?trackFrom))
-
-;         (tracks_linked ?trackFrom ?trackMiddle)
-;         (= (num_trains_on_track ?trackMiddle) 0)
-;         (tracks_linked ?trackMiddle ?trackTo)
-
-;         (>= (track_length ?trackTo) (train_length ?train))
-
+;         (decrease (num_trains_on_track ?trackFrom) 1)
 ;         (= (train_order_on_track ?train) 1)
 
 ;     )
@@ -259,7 +250,6 @@
         (not (is_parking ?train))
 
         (not (block ?trackTo))
-        (not (block ?trackFrom))
 
         (tracks_linked ?trackTo ?trackFrom)
 
@@ -290,11 +280,11 @@
         (increase (num_trains_on_track ?trackTo) 1)
         (assign (train_order_on_track ?train) 1)
 
-        (block ?trackFrom)
-        (block_mutex_holder ?trackFrom ?train)
+        (block ?trackTo)
+        (block_mutex_holder ?trackTo ?train)
 
         (not (servicable ?train))
-        (when (service_allowed ?trackTo) (servicable ?train))
+        (when (service_allowed ?trackTo) (was_serviced ?train))
 
         (not (parkable ?train))
         (when (not (parking_disallowed ?trackTo)) (parkable ?train))
@@ -304,3 +294,14 @@
 
 
 )
+	(tracks_linked track_a_9 track_b_3)
+	(tracks_linked track_a_13 track_b_14)
+	(tracks_linked track_a_15 track_b_3)
+	(tracks_linked track_a_13 track_b_11)
+	(tracks_linked track_a_9 track_b_6)
+	(tracks_linked track_a_9 track_b_8)
+	(tracks_linked track_a_4 track_b_6)
+	(tracks_linked track_a_13 track_b_2)
+	(tracks_linked track_a_1 track_b_7)
+	(tracks_linked track_a_4 track_b_3)
+	(tracks_linked track_a_4 track_b_2)

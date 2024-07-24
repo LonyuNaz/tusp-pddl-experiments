@@ -21,9 +21,9 @@ jobs:
           java-version: '21'
       - name: execute py script # run file
         run: |
-          python exp_normal.py
+          python exp_lmg.py
       - name: Upload histogram
         uses: actions/upload-artifact@v4
         with:
-          name: upload-histogram
-          path: ${{ github.workspace }}/ntrains2_tlen50_ntracks30_ttlr0.05_cmult6.png
+          name: upload-results
+          path: ${{ github.workspace }}/results.csv
