@@ -130,6 +130,7 @@ if __name__ == '__main__':
                                                 rt, nactions = collect_enhsp_statistics()
                                                 break
                                             except Exception as e:
+                                                print(str(e))
                                                 fails +=1 
                                         pbar.update(1)
                                         if fails >= 2:
