@@ -64,7 +64,7 @@ def collect_enhsp_statistics():
     start_time = time.time()
 
     result = subprocess.run(["java", "-jar", "./ENHSP-Public/enhsp-dist/enhsp.jar",
-                                            "-sp", "output.plan", "-h", "hadd", "-s",
+                                            "-sp", "output.plan", "-h", "hmax", "-s",
                                             "wa_star_4", "-gro", "internal", "-ha", "true",
                                             "-o", "dom_n.pddl", "-f", "test_yard.pddl"], 
                                             timeout=30,
